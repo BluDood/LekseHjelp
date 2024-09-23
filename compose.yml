@@ -1,0 +1,14 @@
+services:
+  leksehjelp:
+    build: .
+    restart: unless-stopped
+    ports:
+      - 1337:1337
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/accounts
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: accounts

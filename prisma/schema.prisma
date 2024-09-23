@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @unique @default(cuid())
+  username  String   @unique
+  createdAt DateTime @default(now())
+  salt      String
+  hash      String
+
+  tokens      Token[]
+  assignments Assignment[]
+}
+
+model Token {
+  id        String   @id @unique @default(cuid())
+  hash      String   @unique
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+}
+
+model Assignment {
+  id          String           @id @unique @default(cuid())
+  title       String
+  description String           @default("")
+  dueDate     DateTime?
+  importance  Int?
+  resources   Json[]           @default([])
+  status      AssignmentStatus @default(PENDING)
+  createdAt   DateTime         @default(now())
+
+  trashed   Boolean   @default(false)
+  trashedAt DateTime?
+
+  archived    Boolean   @default(false)
+  completedAt DateTime?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+}
+
+enum AssignmentStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
