@@ -29,3 +29,7 @@ $ cd web
 $ npm i
 $ npm run dev
 ```
+
+## Credits
+
+- BluDood
