@@ -15,7 +15,7 @@ $ docker compose up --build -d
 
 ## Utvikling
 
-Du trenger Node installert, nåverende LTS er 20.17
+Du trenger Node installert på maskinen din, nåverende LTS er 20.17
 
 ```bash
 # Klon repositoriet
@@ -33,3 +33,6 @@ $ npm run dev
 ## Credits
 
 - BluDood
+
+- ### Test
+- 
